@@ -17,15 +17,32 @@ public class Customer {
 	private String shortDateAccountCreated;
 
 	public Customer(String firstName, String lastName, String phoneNumber, String accountNumber, double balance) {
+		this.dateAccountCreated = new Date();
+		this.shortDateAccountCreated = Utils.dateConverter(dateAccountCreated);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phoneNumber;
 		this.accountNumber = accountNumber;
 		this.balance = balance;
-		this.dateAccountCreated = new Date();
-		this.shortDateAccountCreated = Utils.dateConverter(dateAccountCreated);
 	}
 		
+//	public double BalanceAfterDeposit(double balance) {
+//		return this.balance += balance; 
+//	}
+//
+//	public double balanceAfterWithdraw(double balance) {
+//		return this.balance -= balance;
+//	}
+//	
+public double balanceAfterDeposit(double balance) {
+		 this.balance = balance;
+		 return this.balance;
+	}
+
+public double balanceAfterWithdraw(double balance) {
+	 this.balance = balance;
+	 return this.balance;
+}
 	public  double getBalanceWithInterest(double balance, int days) {
 		double r = balance * ((INTEREST_RATE / 365) * days);
 		balance += r; 
@@ -78,5 +95,7 @@ public class Customer {
 		phone = "--";
 		shortDateAccountCreated = "---";
 	}
+
+	
 
 }

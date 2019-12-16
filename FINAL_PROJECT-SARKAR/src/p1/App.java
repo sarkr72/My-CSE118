@@ -11,8 +11,8 @@ public class App {
 	public static Scanner input = new Scanner(System.in);
 
 	public static void main(String[] args) throws ParseException {
-		String response = Utils.mainMenu();
-		Utils.switchBox(response);
+		Utils.mainMenu();
+		System.out.println("find your account by number: ");
 		System.out.println(Utils.findByAccountNumber(Utils.customers, Utils.customerCounter));	
 	}
 }
