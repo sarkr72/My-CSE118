@@ -11,7 +11,7 @@ public class Utils {
 	public static String dLine = "---------------------------------------------------";
 	static Customer[] customers = new Customer[10000];
 	public static int customerCounter = 0;
-
+	private static String d = "-----------------------------------";
 	public static int differenceOfDays(String date1, String date2) throws ParseException {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		Date myDate1 = dateFormat.parse(date1);
@@ -103,18 +103,17 @@ public class Utils {
 								customers[i].getShortDateAccountCreated(), customers[i]);
 						customers[i].balanceAfterWithdraw(b);
 					}
-				}
-				;
+				};
 				break;
 			default:
 				System.out.println();
 			}
-			System.out.println("Do you want to see window menu again? n for no");
+			System.out.println("Do you want to see window menu again? y for yes");
 			String ans = input.next();
-			if (ans.contentEquals("n")) {
-				break;
-			} else {
+			if (ans.contentEquals("y")) {
 				menuForWindow();
+			} else {
+				break;
 			}
 		}
 	}
@@ -203,8 +202,8 @@ public class Utils {
 						}
 						;
 						break;
-					case "7":
-						System.exit(0);
+					case "7": break;
+//						System.exit(0);
 					default:
 						System.out.println("No such thing found!");
 					}
@@ -264,6 +263,7 @@ public class Utils {
 //	}
 
 	public static double checkDeposit(double balance, Customer acc, double interest) {
+		String halfBlank = "         |";
 		Scanner input = new Scanner(System.in);
 		balance += interest;
 		String date = acc.getShortDateAccountCreated();
@@ -276,17 +276,17 @@ public class Utils {
 		} else {
 			System.out.println("       Check Deposit");
 			System.out.println(dLine);
-			System.out.println("| Deposit to the account of                             " + checkNumber + "\n|NAME :"
-					+ acc.getFirstName() + " " + acc.getLastName() + "                CASH|");
-			System.out.println("| DATE :                         " + date
-					+ "\n|      TD Bank\nAmerica's most convienent bank        SUBTOTAL :$" + deposit + "\n"
-					+ "| Account Number *:" + acc.getAccountNumber());
-			System.out.println("| " + ConvertCurrency.convertCurrency(balance) + "     " + checkNumber);
-			balance += deposit;
+			System.out.printf("%-30s%8s%5s%10s\n", "|Deposit to the account of", " ", checkNumber, halfBlank);
+			System.out.printf("%-18s%-10s%-2s%-9s%-1s%10s\n", "|NAME : ",  acc.getFirstName(),  " ",  acc.getLastName(), "CASH", halfBlank);
+			System.out.printf("%-20s%-23s%10s\n", "| DATE :", date, halfBlank);
+					System.out.printf("%-43s%10s\n%-26s%-11s%-8s%1s\n", "|TD Bank", halfBlank, "|America's most convienent bank ", "SUBTOTAL:$", deposit, " |");
+				System.out.printf("%-18s%-14s%20s\n%-1s%-38s%13s\n", "| Account Number *:", acc.getAccountNumber(), "|", "|", ConvertCurrency.convertCurrency(balance), " |");
+			System.out.println(dLine);
+				balance += deposit;
 			getReceipt(acc);
 			System.out.println("Deposit:\t\t" + deposit);
 			System.out.printf("Available balance:\t $%.2f\n", balance);
-			System.out.println(dLine);
+			System.out.println(d);
 			return balance;
 		}
 		return (Double) null;
@@ -317,9 +317,9 @@ public class Utils {
 		System.out.printf("%-16s%-10s%-5s%-10s%11s\n", " ", dateStr, " ", checkNumber, halfLine1);
 		System.out.printf("%-42s%-10s\n%-10s%-17s%-4s%-10s%11s\n", "|pay to the", halfLine1, "|Order of:", name, "  $",
 				withDraw, halfLine1);
-		System.out.printf("%-10s%10s\n", "|ConvertCurrency.convertCurrency(balance)", "dollars    |");
+		System.out.printf("%-1s%-30s%10s\n", "|", ConvertCurrency.convertCurrency(balance), "dollars    |");
 		System.out.printf("%-10s%-14s%-10%17s\n", "|TD BANK", "SIGNATURE:", signature, halfLine1);
-		System.out.printf("%1s%-10s%-2s%-11s%-2s%-3s%-10s\n", "|", routing, " ", "acc.getAccountNumber()", "   ",
+		System.out.printf("%1s%-10s%-2s%-11s%-2s%-3s%-10s\n", "|", routing, " ", acc.getAccountNumber(), "   ",
 				checkNumber, halfLine1);
 		System.out.println(dLine);
 		balance -= withDraw;
@@ -328,7 +328,7 @@ public class Utils {
 		System.out.println("Withdrawal:\t\t$" + withDraw);
 		System.out.printf("%-21s%10.2f", "Available balance:", balance);
 		System.out.println();
-		System.out.println(dLine);
+		System.out.println(d);
 		return balance;
 		}
 		return (Double) null;
@@ -350,11 +350,11 @@ public class Utils {
 //}
 
 	public static void getReceipt(Customer acc) {
-		System.out.println(dLine);
+		System.out.println(d);
 		System.out.println("RECEIPT:");
-		System.out.println(dLine);
+		System.out.println(d);
 		System.out.println("\tTD Bank\n\t474 PORTION RD\n\tLAKE RONKONKOMA, NY, USA");
-		System.out.println(dLine);
+		System.out.println(d);
 		System.out.println("account number:\t\t" + acc.getAccountNumber() + "\n" + "Name:\t\t" + acc.getFirstName()
 				+ " " + acc.getLastName());
 	}
